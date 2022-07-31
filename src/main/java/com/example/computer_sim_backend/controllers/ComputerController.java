@@ -24,6 +24,22 @@ public class ComputerController {
         return computerService.getComputers();
     }
 
+    @GetMapping("/{hashCode}")
+    public Computer getComputerByHashCode(@PathVariable Integer hashCode){
+        for (var item : this.computerService.getComputers()){
+            if(item.hashCode() == hashCode){
+                return this.computerService.getComputerById(item.getId());
+            }
+        }
+        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Computer with specified HashCode doesn't exist");
+    }
+
+
+    @GetMapping("/hash/{id}")
+    public int getComputerHashCodeById(@PathVariable Integer id){
+        return computerService.getComputerById(id).hashCode();
+    }
+
     @PostMapping
     public Computer postComputer(@RequestBody Computer computer){
         return this.computerService.postNewComputer(computer);
@@ -40,13 +56,13 @@ public class ComputerController {
     }
 
     @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.ACCEPTED)
     public Computer putComputerById(@PathVariable Integer id, @RequestBody Computer computer){
         if(!this.computerService.computerExists(id)){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Computer with specified ID doesn't exist");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Computer with specified id: " + id + " doesn't exist");
         }
-        if(!id.equals(computer.getId())){
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Computer doesn't match with new id");
-        }
+        System.out.println(computer.toString());
+        computer.setId(id);
         return this.computerService.putComputerById(computer);
     }
 }

@@ -39,4 +39,18 @@ public class Component {
     public double getPrice() {
         return price;
     }
+
+    @Override
+    public String toString() {
+        return "Component{" +
+                "id=" + id +
+                ", type=" + type +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                '}';
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 }

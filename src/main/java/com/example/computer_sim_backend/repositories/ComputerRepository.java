@@ -13,6 +13,8 @@ public interface ComputerRepository extends CrudRepository<Computer, Long> {
     @Override
     List<Computer> findAll();
 
+    Computer findById(Integer aLong);
+
     @Override
     <S extends Computer> S save(S entity);
 

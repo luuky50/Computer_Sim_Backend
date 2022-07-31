@@ -34,4 +34,11 @@ public class ComponentService {
         return this.componentRepository.save(component);
     }
 
+    public boolean componentExists(Integer id) {
+        return this.componentRepository.existsById(id);
+    }
+
+    public Component postComponentById(Component component) {
+        return this.componentRepository.save(component);
+    }
 }

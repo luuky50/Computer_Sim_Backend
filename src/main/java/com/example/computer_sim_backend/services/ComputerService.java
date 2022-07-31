@@ -5,8 +5,8 @@ import com.example.computer_sim_backend.repositories.ComputerRepository;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
-import javax.persistence.criteria.CriteriaBuilder;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ComputerService {
@@ -23,6 +23,11 @@ public class ComputerService {
     public List<Computer> getComputers(){
         return computerRepository.findAll();
     }
+
+    public Computer getComputerById(Integer id){
+        return computerRepository.findById(id);
+    }
+
 
     public List<Computer> findComputersByName(String name){
         return this.computerRepository.findAllByName(name);

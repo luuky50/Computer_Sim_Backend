@@ -2,6 +2,7 @@ package com.example.computer_sim_backend.entities;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 
@@ -12,6 +13,8 @@ public class Computer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+
 
     @Column
     private String name;
@@ -27,6 +30,10 @@ public class Computer {
         return id;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public String getName() {
         return name;
     }
@@ -37,5 +44,29 @@ public class Computer {
 
     public List<Component> getComponents() {
         return components;
+    }
+
+
+
+    @Override
+    public String toString() {
+        return "Computer{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", components=" + components +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Computer computer = (Computer) o;
+        return id == computer.id && name.equals(computer.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name);
     }
 }

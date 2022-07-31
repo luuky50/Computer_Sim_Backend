@@ -40,7 +40,17 @@ public class ComponentController {
 
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
-    public Component addComponent(@RequestBody Component component){
+    public Component postComponentById(@RequestBody Component component){
         return this.componentService.addComponent(component);
+    }
+
+    @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public Component putComponent(@PathVariable Integer id, @RequestBody Component component){
+        if(!this.componentService.componentExists(id)){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Computer with specified id: " + id + " doesn't exist");
+        }
+        component.setId(id);
+        return this.componentService.postComponentById(component);
     }
 }
