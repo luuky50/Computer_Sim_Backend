@@ -5,7 +5,6 @@ import com.example.computer_sim_backend.entities.Computer;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface ComputerRepository extends CrudRepository<Computer, Long> {
     List<Computer> findAllByName(String name);
@@ -13,12 +12,13 @@ public interface ComputerRepository extends CrudRepository<Computer, Long> {
     @Override
     List<Computer> findAll();
 
-    Computer findById(Integer aLong);
+    Computer findById(long aLong);
 
     @Override
     <S extends Computer> S save(S entity);
 
-    void deleteById(Integer aLong);
+    void deleteById(Long aLong);
 
-    boolean existsById(Integer aLong);
+    boolean existsById(Long aLong);
+
 }

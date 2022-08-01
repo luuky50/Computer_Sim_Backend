@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.transaction.Transactional;
 import java.util.Arrays;
 import java.util.List;
 
@@ -40,17 +41,27 @@ public class ComponentController {
 
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
-    public Component postComponentById(@RequestBody Component component){
+    public Component postComponent(@RequestBody Component component){
         return this.componentService.addComponent(component);
     }
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public Component putComponent(@PathVariable Integer id, @RequestBody Component component){
+    public Component putComponent(@PathVariable Long id, @RequestBody Component component){
         if(!this.componentService.componentExists(id)){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Computer with specified id: " + id + " doesn't exist");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Component with specified id: " + id + " doesn't exist");
         }
         component.setId(id);
         return this.componentService.postComponentById(component);
+    }
+
+    @DeleteMapping("/{id}")
+    @Transactional
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteComponent(@PathVariable Long id){
+        if(!this.componentService.componentExists(id)){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Component with specified id: " + id + " doesn't exist");
+        }
+        this.componentService.deleteComponentById(id);
     }
 }

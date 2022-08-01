@@ -13,6 +13,8 @@ public class User {
     @Column
     private String name;
 
+
+
     @Column
     @OneToMany
     private List<Computer> computers;

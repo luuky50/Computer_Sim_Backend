@@ -6,7 +6,6 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public interface ComponentRepository extends CrudRepository<Component, Long> {
@@ -18,7 +17,7 @@ public interface ComponentRepository extends CrudRepository<Component, Long> {
     <S extends Component> S save(S entity);
 
 
-    boolean existsById(Integer aLong);
+    boolean existsById(Long aLong);
     List<Component> findAllByType(Type type);
 
 }

@@ -3,7 +3,6 @@ package com.example.computer_sim_backend.controllers;
 import com.example.computer_sim_backend.entities.Computer;
 import com.example.computer_sim_backend.services.ComputerService;
 import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -48,7 +47,7 @@ public class ComputerController {
     @DeleteMapping("/{id}")
     @Transactional
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteComputerById(@PathVariable Integer id){
+    public void deleteComputerById(@PathVariable Long id){
         if(!this.computerService.computerExists(id)){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Computer with specified ID doesn't exist");
         }
@@ -57,7 +56,7 @@ public class ComputerController {
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public Computer putComputerById(@PathVariable Integer id, @RequestBody Computer computer){
+    public Computer putComputerById(@PathVariable Long id, @RequestBody Computer computer){
         if(!this.computerService.computerExists(id)){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Computer with specified id: " + id + " doesn't exist");
         }

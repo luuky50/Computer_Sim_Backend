@@ -12,7 +12,7 @@ public class Computer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private long id;
 
 
 
@@ -26,11 +26,11 @@ public class Computer {
     @ManyToMany()
     private List<Component> components;
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

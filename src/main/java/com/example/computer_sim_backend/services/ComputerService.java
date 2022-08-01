@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ComputerService {
@@ -24,7 +23,7 @@ public class ComputerService {
         return computerRepository.findAll();
     }
 
-    public Computer getComputerById(Integer id){
+    public Computer getComputerById(long id){
         return computerRepository.findById(id);
     }
 
@@ -37,11 +36,11 @@ public class ComputerService {
         return this.computerRepository.save(computer);
     }
 
-    public void deleteComputerById(Integer id){
+    public void deleteComputerById(Long id){
         this.computerRepository.deleteById(id);
     }
 
-    public boolean computerExists(Integer id){
+    public boolean computerExists(Long id){
         return computerRepository.existsById(id);
     }
 
