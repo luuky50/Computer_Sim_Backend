@@ -1,9 +1,13 @@
 package com.example.computer_sim_backend.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.sun.istack.NotNull;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
-import java.util.UUID;
 
 
 @Entity
@@ -19,9 +23,10 @@ public class Computer {
     @Column
     private String name;
 
-//    @NotNull
-//    @OneToOne
-//    private User madeBy;
+    @NotNull
+    @ManyToOne
+    @JoinColumn(nullable = false)
+    private Creator madeBy;
 
     @ManyToMany()
     private List<Component> components;
@@ -38,14 +43,13 @@ public class Computer {
         return name;
     }
 
-//    public User getMadeBy() {
-//        return madeBy;
-//    }
+    public Creator getMadeBy() {
+        return madeBy;
+    }
 
     public List<Component> getComponents() {
         return components;
     }
-
 
 
     @Override
@@ -53,6 +57,7 @@ public class Computer {
         return "Computer{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", madeBy=" + madeBy +
                 ", components=" + components +
                 '}';
     }
@@ -69,4 +74,5 @@ public class Computer {
     public int hashCode() {
         return Objects.hash(id, name);
     }
+
 }

@@ -1,6 +1,7 @@
 package com.example.computer_sim_backend.controllers;
 
 import com.example.computer_sim_backend.entities.Computer;
+import com.example.computer_sim_backend.entities.Creator;
 import com.example.computer_sim_backend.services.ComputerService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -39,8 +40,9 @@ public class ComputerController {
         return computerService.getComputerById(id).hashCode();
     }
 
-    @PostMapping
+    @PostMapping()
     public Computer postComputer(@RequestBody Computer computer){
+        System.out.println(computer.getMadeBy());
         return this.computerService.postNewComputer(computer);
     }
 
