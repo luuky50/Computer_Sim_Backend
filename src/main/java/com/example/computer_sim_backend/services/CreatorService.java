@@ -22,12 +22,6 @@ public class CreatorService {
         return this.creatorRepository.findAll();
     }
 
-
-    public List<Creator> findCreatorByName(String name){
-        return this.creatorRepository.findAllByName(name);
-
-    }
-
     public Creator postCreator(Creator creator){
         return this.creatorRepository.save(creator);
     }

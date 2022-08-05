@@ -22,21 +22,19 @@ public class ComponentController {
     }
 
     @GetMapping()
-    public List<Component> getComponents(){
-        return this.componentService.getComponents();
-    }
-
-
-    @GetMapping("/{type}")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public List<Component> findComponentByType(@PathVariable String type){
-        //throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Type not found");
-        return this.componentService.findComponentsByType(Arrays.stream(Type
-                        .values())
-                .filter(_type -> _type.toString()
-                        .equals(type))
-                .findFirst()
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Type not found")));
+    public List<Component> getComponents(@RequestParam(name = "type", required = false) String type){
+        if(type == null || type.equals("")) {
+            return this.componentService.getComponents();
+        }
+        else {
+            return this.componentService.findComponentsByType(Arrays.stream(Type
+                            .values())
+                    .filter(_type -> _type.toString()
+                            .equals(type))
+                    .findFirst()
+                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Type not found")));
+        }
     }
 
     @PostMapping()

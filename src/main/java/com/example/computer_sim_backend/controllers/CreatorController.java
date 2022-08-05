@@ -24,12 +24,6 @@ public class CreatorController {
     }
 
 
-    @GetMapping("/{name}")
-    @ResponseStatus(HttpStatus.ACCEPTED)
-    public List<Creator> findCreatorByName(@PathVariable String name){
-        //throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Type not found");
-        return this.creatorService.findCreatorByName(name);
-    }
 
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)

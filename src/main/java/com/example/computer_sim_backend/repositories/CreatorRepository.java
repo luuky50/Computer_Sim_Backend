@@ -13,5 +13,4 @@ public interface CreatorRepository extends CrudRepository<Creator, Long> {
 
     void deleteById(Long aLong);
 
-    List<Creator> findAllByName(String name);
 }

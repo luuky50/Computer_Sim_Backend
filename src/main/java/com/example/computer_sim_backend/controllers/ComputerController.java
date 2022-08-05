@@ -20,12 +20,14 @@ public class ComputerController {
     }
 
     @GetMapping
+    @ResponseStatus(HttpStatus.ACCEPTED)
     public List<Computer> getComputers(){
         return computerService.getComputers();
     }
 
-    @GetMapping("/{hashCode}")
-    public Computer getComputerByHashCode(@PathVariable Integer hashCode){
+    @GetMapping("/hashcode")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public Computer getComputerByHashCode(@RequestParam(name = "hashcode") Integer hashCode){
         for (var item : this.computerService.getComputers()){
             if(item.hashCode() == hashCode){
                 return this.computerService.getComputerById(item.getId());
@@ -35,8 +37,12 @@ public class ComputerController {
     }
 
 
-    @GetMapping("/hash/{id}")
-    public int getComputerHashCodeById(@PathVariable Integer id){
+    @GetMapping("/hash")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public int getComputerHashCodeById(@RequestParam(name = "id") Integer id){
+        if(computerService.getComputerById(id) == null){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Computer with specified ID doesn't exist");
+        }
         return computerService.getComputerById(id).hashCode();
     }
 
