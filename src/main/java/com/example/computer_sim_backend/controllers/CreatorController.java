@@ -19,6 +19,7 @@ public class CreatorController {
     }
 
     @GetMapping()
+    @ResponseStatus(HttpStatus.OK)
     public List<Creator> getCreators(){
         return this.creatorService.getCreators();
     }
@@ -32,7 +33,7 @@ public class CreatorController {
     }
 
     @PutMapping("/{id}")
-    @ResponseStatus(HttpStatus.ACCEPTED)
+    @ResponseStatus(HttpStatus.OK)
     public Creator putCreator(@PathVariable Long id, @RequestBody Creator creator){
         if(!this.creatorService.creatorExists(id)){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Creator with specified id: " + id + " doesn't exist");

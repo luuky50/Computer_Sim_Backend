@@ -22,7 +22,7 @@ public class ComponentController {
     }
 
     @GetMapping()
-    @ResponseStatus(HttpStatus.ACCEPTED)
+    @ResponseStatus(HttpStatus.OK)
     public List<Component> getComponents(@RequestParam(name = "type", required = false) String type){
         if(type == null || type.equals("")) {
             return this.componentService.getComponents();
@@ -44,7 +44,7 @@ public class ComponentController {
     }
 
     @PutMapping("/{id}")
-    @ResponseStatus(HttpStatus.ACCEPTED)
+    @ResponseStatus(HttpStatus.OK)
     public Component putComponent(@PathVariable Long id, @RequestBody Component component){
         if(!this.componentService.componentExists(id)){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Component with specified id: " + id + " doesn't exist");

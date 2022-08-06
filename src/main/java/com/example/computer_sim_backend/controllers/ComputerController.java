@@ -1,7 +1,6 @@
 package com.example.computer_sim_backend.controllers;
 
 import com.example.computer_sim_backend.entities.Computer;
-import com.example.computer_sim_backend.entities.Creator;
 import com.example.computer_sim_backend.services.ComputerService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -20,13 +19,13 @@ public class ComputerController {
     }
 
     @GetMapping
-    @ResponseStatus(HttpStatus.ACCEPTED)
+    @ResponseStatus(HttpStatus.OK)
     public List<Computer> getComputers(){
         return computerService.getComputers();
     }
 
     @GetMapping("/hashcode")
-    @ResponseStatus(HttpStatus.ACCEPTED)
+    @ResponseStatus(HttpStatus.OK)
     public Computer getComputerByHashCode(@RequestParam(name = "hashcode") Integer hashCode){
         for (var item : this.computerService.getComputers()){
             if(item.hashCode() == hashCode){
@@ -38,7 +37,7 @@ public class ComputerController {
 
 
     @GetMapping("/hash")
-    @ResponseStatus(HttpStatus.ACCEPTED)
+    @ResponseStatus(HttpStatus.OK)
     public int getComputerHashCodeById(@RequestParam(name = "id") Integer id){
         if(computerService.getComputerById(id) == null){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Computer with specified ID doesn't exist");
@@ -47,6 +46,7 @@ public class ComputerController {
     }
 
     @PostMapping()
+    @ResponseStatus(HttpStatus.CREATED)
     public Computer postComputer(@RequestBody Computer computer){
         System.out.println(computer.getMadeBy());
         return this.computerService.postNewComputer(computer);
@@ -63,7 +63,7 @@ public class ComputerController {
     }
 
     @PutMapping("/{id}")
-    @ResponseStatus(HttpStatus.ACCEPTED)
+    @ResponseStatus(HttpStatus.OK)
     public Computer putComputerById(@PathVariable Long id, @RequestBody Computer computer){
         if(!this.computerService.computerExists(id)){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Computer with specified id: " + id + " doesn't exist");
